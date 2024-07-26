@@ -2,6 +2,7 @@ import pymysql.cursors
 from fastapi import FastAPI, HTTPException, Query
 from dotenv import load_dotenv
 import os
+import pymysql
 from typing import Optional
 
 # Cargar variables de entorno desde el archivo .env
@@ -14,6 +15,16 @@ host = os.getenv('DB_HOST')
 database = os.getenv('DB_DATABASE')
 
 app = FastAPI()
+
+# Configuración de la conexión
+config = {
+    'user': username,
+    'password': password,
+    'host': host,
+    'port': 3306,
+    'database': database,
+    'cursorclass': pymysql.cursors.DictCursor
+}
 
 def get_db_connection():
     try:
